@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feezan Khattak — Backend & Payments Learning Library</title>
+<style>
+:root {
+  --bg: #0e1116;
+  --panel: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --accent-soft: #1f6feb;
+  --feezan: #f7c948;
+  --feezan-bg: rgba(247, 201, 72, 0.08);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  line-height: 1.55;
+  font-size: 15px;
+}
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+.top h1 {
+  font-size: 28px;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+.top .subtitle {
+  color: var(--muted);
+  margin: 0 0 8px 0;
+}
+.top .meta {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 28px;
+}
+.toc {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 32px;
+}
+.toc h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.toc ol {
+  margin: 0;
+  padding-left: 20px;
+  columns: 2;
+  column-gap: 24px;
+}
+.toc li {
+  margin: 4px 0;
+  break-inside: avoid;
+}
+.toc a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+}
+.toc a:hover { color: var(--accent); }
+.post {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 28px;
+  scroll-margin-top: 24px;
+}
+.post header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.post .num {
+  background: var(--accent-soft);
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.post .title-block { flex: 1; }
+.post h2 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+.post .date {
+  color: var(--muted);
+  font-size: 13px;
+}
+.post figure {
+  margin: 0 0 20px 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.post img.diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.no-img-note {
+  background: rgba(139, 148, 158, 0.1);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+.post .caption p {
+  margin: 0 0 12px 0;
+}
+.post .caption {
+  font-size: 15px;
+}
+.post .examples {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+.post .examples h3 {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--feezan);
+}
+.post blockquote.feezan {
+  margin: 0 0 12px 0;
+  padding: 12px 16px;
+  background: var(--feezan-bg);
+  border-left: 3px solid var(--feezan);
+  border-radius: 4px;
+  font-size: 14px;
+}
+.post blockquote.feezan p {
+  margin: 0 0 8px 0;
+}
+.post .other-comments {
+  margin-top: 16px;
+  font-size: 14px;
+}
+.post .other-comments summary {
+  cursor: pointer;
+  color: var(--muted);
+  padding: 6px 0;
+  font-size: 13px;
+}
+.post .other-comments summary:hover { color: var(--accent); }
+.post .other-comments blockquote {
+  margin: 8px 0;
+  padding: 10px 14px;
+  background: rgba(139, 148, 158, 0.06);
+  border-left: 2px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+}
+.post .other-comments blockquote p {
+  margin: 0 0 6px 0;
+}
+.post .src-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 13px;
+}
+.post .src-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>Feezan Khattak — Backend & Payments Learning Library</h1>
+    <p class="subtitle">Hand-drawn system design diagrams from the last 30 days, one concept per section.</p>
+    <p class="meta">25 posts collected from <a style="color:var(--accent)" href="https://www.linkedin.com/in/feezan-khattak/recent-activity/all/" target="_blank">linkedin.com/in/feezan-khattak</a></p>
+  </div>
+
+  <nav class="toc">
+    <h3>Concepts covered</h3>
+    <ol>
+    <li><a href="#post-7457081690201505793">Fraud Detection: Rules vs ML</a></li>
+    <li><a href="#post-7455994487203561472">Handling High Concurrency Safely</a></li>
+    <li><a href="#post-7455632069369487362">Database Design for Transactions</a></li>
+    <li><a href="#post-7455269793797959680">Using Queues in Payment Flows</a></li>
+    <li><a href="#post-7454907413020868609">Event-Driven Architecture in Payments</a></li>
+    <li><a href="#post-7454544952031772673">How to Scale a Payment System</a></li>
+    <li><a href="#post-7453457787520503808">Refund Flow Design</a></li>
+    <li><a href="#post-7453095381858607105">Designing a Ledger System</a></li>
+    <li><a href="#post-7452733098351325184">Exactly-Once vs At-Least-Once — What Really Happens in Payments</a></li>
+    <li><a href="#post-7449471466259042305">Authorized… But Never Captured — Now What?</a></li>
+    <li><a href="#post-7448384411986825216">Payment Succeeded… But Your System Thinks It Failed</a></li>
+    <li><a href="#post-7448022000192663552">Webhooks: The Backbone of Async Payments</a></li>
+    <li><a href="#post-7447659580991561728">How Payment Failures Are Handled (Retry, Rollback)</a></li>
+    <li><a href="#post-7447308459932426241">Why Idempotency is Critical in Payments</a></li>
+    <li><a href="#post-7446946073023188992">Authorization vs Capture — The Part Most People Miss</a></li>
+    <li><a href="#post-7446583684394024960">How a Payment Actually Works (End-to-End)</a></li>
+    <li><a href="#post-7446221410802466816">Designing a News Feed System at Scale</a></li>
+    <li><a href="#post-7444579251271442432">Event Tracking: What Happens After You Send a Notification?</a></li>
+    <li><a href="#post-7444415368900722688">Designing a Scalable Notification System</a></li>
+    <li><a href="#post-7443127065668689920">Designing a Web Crawler at Scale</a></li>
+    <li><a href="#post-7438962219725520896">Token Bucket: How Top Engineers Keep Systems Reliable Under Load</a></li>
+    <li><a href="#post-7438619626005110784">Why Rate Limiting Is Critical in Modern Systems</a></li>
+    <li><a href="#post-7437155133777526784">A Practical Framework for Approaching System Design Problems</a></li>
+    <li><a href="#post-7436783974498304000">Back-of-the-Envelope Estimation: A Key Skill in System Design</a></li>
+    <li><a href="#post-7436427447123755008">How a Web Application Scales From 1 User to Millions</a></li>
+    </ol>
+  </nav>
+
+<section class="post" id="post-7457081690201505793">
+  <header>
+    <span class="num">01</span>
+    <div class="title-block">
+      <h2>Fraud Detection: Rules vs ML</h2>
+      <span class="date">20h ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQEFdkJtEr8MUA/feedshare-shrink_800/B4DZ3XSqNxJIAg-/0/1777433486481?e=1779321600&amp;v=beta&amp;t=9cVMegny3CU6t8uDSrYVUBcW_XJgRvMT4IRo4VXJIGE" alt="Fraud Detection: Rules vs ML" loading="lazy" /></figure>
+  <div class="caption"><p>Every payment system needs a line of defense.</p><p>The question is — how smart should it be?</p><p>Rule-based systems:<br> - Simple conditions (amount, location, velocity)<br> - Fast, predictable, easy to debug<br> - But rigid — fraudsters adapt quickly</p><p>ML-based systems:<br> - Learn patterns from historical data<br> - Catch subtle, evolving fraud signals<br> - But harder to explain and maintain</p><p>Where it gets tricky:<br> - Too strict → block real users<br> - Too loose → let fraud pass</p><p>This is not a technical problem only — it’s a business trade-off.</p><p>What real systems do:<br> 1. Start with strong rules<br> 2. Layer ML on top for smarter detection<br> 3. Continuously tune based on feedback</p><p>Fraud detection isn’t about being perfect — it’s about managing risk without killing user experience.</p><p>Good systems don’t choose between rules and ML — they combine both.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7457081690201505793/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7455994487203561472">
+  <header>
+    <span class="num">02</span>
+    <div class="title-block">
+      <h2>Handling High Concurrency Safely</h2>
+      <span class="date">3d ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQErrt96y6QkYA/feedshare-shrink_800/B4DZ3IFprMHUAg-/0/1777178418182?e=1779321600&amp;v=beta&amp;t=1W9Dq7dJV63c5CZT1Va3FBwXVA3gt9GvXsqrmGRQScc" alt="Handling High Concurrency Safely" loading="lazy" /></figure>
+  <div class="caption"><p>When traffic spikes, problems don’t show up slowly — they show up all at once.</p><p>Multiple requests hit the same payment at the same time.</p><p>What can go wrong:<br> - Duplicate charges<br> - Race conditions on state updates<br> - Inconsistent balances</p><p>Everything works in testing — until concurrency hits.</p><p>Why does this happen:<br> - Parallel requests<br> - “Check-then-act” logic<br> - No coordination between processes</p><p>How good systems handle this:<br> 1. Idempotency for every critical operation<br> 2. Database constraints (unique keys)<br> 3. Atomic updates/transactions<br> 4. Selective locking (only where needed)</p><p>You don’t eliminate concurrency — you design so it can’t break you.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7455994487203561472/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7455632069369487362">
+  <header>
+    <span class="num">03</span>
+    <div class="title-block">
+      <h2>Database Design for Transactions</h2>
+      <span class="date">4d ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQHDLyhSJ9bZBg/feedshare-shrink_800/B4DZ3DWjBLI4Ac-/0/1777098961327?e=1779321600&amp;v=beta&amp;t=suImVXQSeV1Jw-PSEL9d_uFy-0lwtMtJrVsuhmiF80M" alt="Database Design for Transactions" loading="lazy" /></figure>
+  <div class="caption"><p>In payments, your database isn’t just storage —<br>it’s part of the transaction itself.</p><p>A bad schema doesn’t just slow things down.<br>It creates inconsistency, duplicates, and money errors.</p><p>What matters:<br> - Every payment has a unique identity<br> - State changes are explicit and traceable<br> - Writes are atomic</p><p>Typical structure:<br> - payments → high-level state (created, authorized, captured)<br> - transactions → individual operations (charge, refund)<br> - idempotency_keys → prevent duplicates</p><p>Where it gets tricky:<br> - Concurrent updates → race conditions<br> - Partial writes → broken state<br> - Retries → duplicate records</p><p>How good systems handle this:<br> 1. Strong constraints (unique keys, indexes)<br> 2. Transactions for critical writes<br> 3. Append-only patterns for auditability</p><p>If your database design is weak, no amount of logic will save you.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7455632069369487362/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7455269793797959680">
+  <header>
+    <span class="num">04</span>
+    <div class="title-block">
+      <h2>Using Queues in Payment Flows</h2>
+      <span class="date">5d ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQGlJFOYHqmhKQ/feedshare-shrink_800/B4DZ3DVkhMHUAc-/0/1777098705289?e=1779321600&amp;v=beta&amp;t=X8i1kf43zyFAzP_EQeXbyGMe4EdMnWS0OUOCvoJL0g4" alt="Using Queues in Payment Flows" loading="lazy" /></figure>
+  <div class="caption"><p>Payments shouldn’t depend on everything working instantly.</p><p>That’s where queues come in.</p><p>Instead of doing everything in one request,<br>you push the work to a queue and process it reliably.</p><p>What this solves:<br> - Handles traffic spikes without breaking<br> - Decouples services (gateway, ledger, notifications)<br> - Enables retries without blocking users</p><p>Typical flow:<br> - API receives payment request<br> - Event pushed to queue<br> - Workers process payment asynchronously</p><p>Where it gets tricky:<br> - Messages can be delayed or duplicated<br> - Ordering is not guaranteed<br> - Failures can leave messages stuck</p><p>How good systems handle this:<br> 1. Idempotent consumers (safe retries)<br> 2. Dead-letter queues for failures<br> 3. Monitoring + replay mechanisms</p><p>Queues don’t make systems simpler — they make them resilient.<br>In payments, reliability doesn’t come from speed — it comes from controlled async processing.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7455269793797959680/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7454907413020868609">
+  <header>
+    <span class="num">05</span>
+    <div class="title-block">
+      <h2>Event-Driven Architecture in Payments</h2>
+      <span class="date">6d ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQG5O1adXD9inA/feedshare-shrink_800/B4DZ3DUdTdHYAc-/0/1777098413561?e=1779321600&amp;v=beta&amp;t=R_-WMnOV_AAOqIwS3EgOxn7nzcYCi210m5nNZI7zPjM" alt="Event-Driven Architecture in Payments" loading="lazy" /></figure>
+  <div class="caption"><p>Payments don’t happen in one step.</p><p>They evolve:<br> - initiated → processed → succeeded → settled</p><p>Trying to handle all of this in a single flow?<br>That’s where systems break.</p><p>Event-driven design changes the game:</p><p>Instead of one big transaction, you emit events at every step.<br> - Payment created<br> - Payment authorized<br> - Payment captured<br> - Payment failed</p><p>Each service reacts to these events independently.</p><p>Why this works:<br> - Loose coupling between services<br> - Better handling of async flows<br> - Easier retries and recovery</p><p>Where it gets tricky:<br> - Events can arrive late or be duplicated<br> - Ordering is not guaranteed<br> - Systems must handle partial state</p><p>Good systems don’t fight this — they design around it.<br>In payments, events aren’t just notifications — they are the system.</p></div>
+  <details class="other-comments">
+    <summary>9 community comment(s) — real-world examples</summary>
+    <blockquote><strong>Reader:</strong> <p>Completely agree — this is spot on.<br>At Payouts.com, we see this every day in practice. Building payment systems as synchronous, “all-in-one” flows simply doesn’t hold up once you introduce real-world complexity (multiple providers, retries, failures, settlements, etc.).<br>That’s why we design everything around asynchronous, event-driven workflows. Each step in the payment lifecycle emits events, and downstream services react independently. It’s the only way to achieve true scalability and resilience in modern payment systems.<br>Of course, it comes with its own challenges — idempotency, ordering, eventual consistency — but as you said, strong systems don’t try to eliminate these realities, they embrace and design around them.<br>In payments, events aren’t just part of the system — they are the system.</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>If you have to explain what’s happening in the given flow, it seems that the flow is not clear enough</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>In our banking system application, we also evolved toward an event-driven architecture. However, it came with many challenges, as we did not have Kafka experts, especially in terms of scaling consumer groups, handling already-processed credit events, and managing the sequential processing of Kafka messages, which resulted in considerable time lag when request traffic became congested and Kafka messages started piling up on the server.</p><p>This design looks super cool, but it comes with quite a few silent challenges when traffic spikes.</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>Aliens landed on our Earth — first they flew around it in circles, took a good look at everything, and then decided to make contact with the people of Earth. They ask:<br>— Why do you have so much garbage and so many dumps everywhere?<br>— It&#x27;s because we don&#x27;t have enough money to build waste recycling plants.<br>— Why do you have so many hungry and homeless people?<br>— It&#x27;s because we don&#x27;t have enough money to feed them and build them homes.<br>— Why are you constantly at war with each other?<br>— It&#x27;s because we don&#x27;t have enough money, and we try to take it from others.<br>...the aliens scratched their &quot;noggins&quot; and asked:<br>— You see, we travel between galaxies, have explored countless worlds and planets, but we have never once encountered such a rare and apparently very essential resource as money. Could you show us what it looks like, and tell us where exactly you mine it in space? We&#x27;ll try to fly out and get it, bring you more of this money, and help you establish harmony on your planet.<br>— Oh, we don&#x27;t fly anywhere for money, — the earthlings replied, — we print it ourselves.<br>— Yourselves? — the aliens asked again.<br>— Yes.<br>...after that answer, earthlings were removed from the list of intelligent beings...</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>Finally a pattern that lets payments breathe instead of choking on monolithic calls</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>Exactly. In event-driven payment systems, idempotency keys and tracking IDs become critical for safely handling duplicate events and retries.</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>I don&#x27;t know when will people stop generating hallucinated AI images and post it like ancient wisdom they bestowed upon. You missed the most important part out on this, which is called &quot;Idempotency&quot;. Google it...</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>I wish I had something like this when I started in payments.</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>Good explanation event driven design makes payment systems more scalable and reliable 🚀</p></blockquote>
+  </details>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7454907413020868609/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7454544952031772673">
+  <header>
+    <span class="num">06</span>
+    <div class="title-block">
+      <h2>How to Scale a Payment System</h2>
+      <span class="date">1w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQFjWqZXgrrKbQ/feedshare-shrink_800/B4DZ3C2micHYAc-/0/1777090587134?e=1779321600&amp;v=beta&amp;t=FRTSSE4imtdyerb64F4PIDETvyeu2tC6s8Jh2zi9ttc" alt="How to Scale a Payment System" loading="lazy" /></figure>
+  <div class="caption"><p>Scaling payments isn’t just about handling more traffic.</p><p>It’s about handling more money — without mistakes.</p><p>At a small scale, things work fine.<br>At a large scale, everything breaks differently.</p><p>What changes as you scale:<br> - More concurrent requests → race conditions<br> - More retries → duplicate processing<br> - More integrations → inconsistent states</p><p>You can’t “just scale servers” and hope it works.</p><p>What good systems do:<br> 1. Design for idempotency by default<br> 2. Move to async processing where possible<br> 3. Isolate critical components (gateway, ledger)<br> 4. Build strong reconciliation pipelines</p><p>Scaling payments is less about performance — more about correctness under pressure.</p><p>If your system isn’t correct at a small scale, it will fail faster at a large scale.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7454544952031772673/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7453457787520503808">
+  <header>
+    <span class="num">07</span>
+    <div class="title-block">
+      <h2>Refund Flow Design</h2>
+      <span class="date">1w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQFelQehaJXeoQ/feedshare-shrink_800/B4DZ2ok3NeHcAg-/0/1776649729232?e=1779321600&amp;v=beta&amp;t=x5-aSvAQ1-lW_1SgFPi9BPQ_tucoC7MUmDAe4BTl6Xw" alt="Refund Flow Design" loading="lazy" /></figure>
+  <div class="caption"><p>Refunds look simple:<br>“Just give the money back.”</p><p>They’re not.</p><p>A refund is a new transaction — not a reversal of the old one.</p><p>What actually happens:<br> - Original payment is completed<br> - Refund request is created separately<br> - Money flows back through the system</p><p>Where it gets tricky:<br> - Partial refunds vs full refunds<br> - Multiple refunds on the same payment<br> - Refund succeeds at the provider but fails in your system</p><p>Now your state is broken.</p><p>What good systems do:<br> 1. Treat refund as an independent flow<br> 2. Link it to the original transaction<br> 3. Make it idempotent (no double refunds)<br> 4. Track status via async updates</p><p>Refunds are slower, messier, and more prone to failure than payments.</p><p>If you don’t design them properly, you lose both money and trust.</p><p>A refund isn’t undo — it’s another payment in the opposite direction.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7453457787520503808/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7453095381858607105">
+  <header>
+    <span class="num">08</span>
+    <div class="title-block">
+      <h2>Designing a Ledger System</h2>
+      <span class="date">1w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQEG2h8Q676Dxg/feedshare-shrink_800/B4DZ2ohNE2KEAk-/0/1776648770173?e=1779321600&amp;v=beta&amp;t=TgD3ouXGNGRjZSItwMFyjrDia01R68MNAKdHWaoWbUo" alt="Designing a Ledger System" loading="lazy" /></figure>
+  <div class="caption"><p>In payments, this is where truth lives.</p><p>Not in your service.<br>Not in external providers.<br>In your ledger.</p><p>A ledger doesn’t track balances — it records every movement of money.</p><p>Core idea:<br> - Every transaction = debit + credit<br> - Money never disappears, it just moves</p><p>What this gives you:<br> - Full audit trail<br> - Consistent balances<br> - Ability to reconstruct the state anytime</p><p>Where it gets tricky:<br> - Partial failures → entries out of sync<br> - Concurrency → double writes<br> - Reconciliation with external systems</p><p>How good systems handle this:<br> 1. Use double-entry accounting<br> 2. Make writes atomic<br> 3. Never update the balance directly — derive it</p><p>If your ledger is wrong, everything built on top of it is wrong.</p><p>In payments, your ledger isn’t a feature — it’s the source of truth.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7453095381858607105/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7452733098351325184">
+  <header>
+    <span class="num">09</span>
+    <div class="title-block">
+      <h2>Exactly-Once vs At-Least-Once — What Really Happens in Payments</h2>
+      <span class="date">1w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQGSv0HxyRkybQ/feedshare-shrink_800/B4DZ2oeQ9xIEAc-/0/1776647999738?e=1779321600&amp;v=beta&amp;t=nsSm6tNOfREfL4MyD93uZMnakxenabPRenHW_XNGyCw" alt="Exactly-Once vs At-Least-Once — What Really Happens in Payments" loading="lazy" /></figure>
+  <div class="caption"><p>Everyone wants “exactly-once” processing.<br>In reality, most systems operate on at-least-once.</p><p>Why?</p><p>Because networks fail, retries happen, and messages get duplicated.</p><p>At-least-once:<br> - Requests can be processed multiple times<br> - Safer for delivery<br> - Needs protection against duplicates</p><p>Exactly-once:<br> - Ideal in theory<br> - Hard to guarantee in distributed systems<br> - Expensive and complex</p><p>Where things go wrong:<br> - Duplicate events → multiple charges<br> - Missed events → lost payments</p><p>So what do real systems do?<br> 1. They accept at-least-once — and design for it.<br> 2. Idempotency ensures safe retries<br> 3. Deduplication prevents double processing<br> 4. Systems stay consistent despite retries</p><p>You don’t achieve exactly-once by enforcing it — you achieve it by designing safely around at-least-once.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7452733098351325184/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7449471466259042305">
+  <header>
+    <span class="num">10</span>
+    <div class="title-block">
+      <h2>Authorized… But Never Captured — Now What?</h2>
+      <span class="date">3w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQFfweSxtMI0jA/feedshare-shrink_800/B4DZ1topBZLMAc-/0/1775660864013?e=1779321600&amp;v=beta&amp;t=SOFDymyqNtGm-va6toUI7zWYCu5J-KFu_Bqxawvmehw" alt="Authorized… But Never Captured — Now What?" loading="lazy" /></figure>
+  <div class="caption"><p>A payment gets authorized → funds are reserved.</p><p>But if you don’t capture it in time, the authorization simply expires.</p><p>And just like that — the payment is gone.</p><p>What your system thinks:<br> - Payment is secured ✅</p><p>What actually happens:<br> - Funds are released back to the user ❌</p><p>Where things break:<br> 1. Order is processed, but payment is never collected<br> 2. Inventory is shipped without money received<br> 3. System shows success, but revenue is lost</p><p>How to handle this properly:<br> 1. Track authorization expiry time explicitly<br> 2. Use background jobs to auto-capture before expiry<br> 3. Trigger capture only after key events (e.g., shipping)<br> 4. Set alerts for uncaptured payments</p><p>Authorization is temporary — it’s not a guarantee of payment.</p><p>If you don’t capture in time, you don’t get paid.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7449471466259042305/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7448384411986825216">
+  <header>
+    <span class="num">11</span>
+    <div class="title-block">
+      <h2>Payment Succeeded… But Your System Thinks It Failed</h2>
+      <span class="date">3w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQF3uCg3cF-kqw/feedshare-shrink_800/B4DZ1tnLFvH8Ac-/0/1775660479207?e=1779321600&amp;v=beta&amp;t=VODsAUVGZAdSQqwt8tgwNoMIVE3STcW4TWMgvjOFpfE" alt="Payment Succeeded… But Your System Thinks It Failed" loading="lazy" /></figure>
+  <div class="caption"><p>This is one of the most dangerous scenarios in payments.</p><p>Your system sends a payment request → The bank processes it successfully → But your system times out before getting the response.</p><p>Now what?</p><p>From your system’s perspective:<br> - Payment = failed ❌</p><p>From the bank’s perspective:<br> - Payment = successful ✅</p><p>This is where things break:<br> 1. You might retry → double charge<br> 2. You might mark it failed → user gets charged but sees an error<br> 3. Your system state becomes inconsistent</p><p>How good systems handle this:<br> 1. Never trust immediate responses alone<br> 2. Use webhooks for final confirmation<br> 3. Design flows assuming uncertainty</p><p>In payments, “no response” doesn’t mean failure — it means you don’t know yet.</p></div>
+  <details class="other-comments">
+    <summary>1 community comment(s) — real-world examples</summary>
+    <blockquote><strong>Reader:</strong> <p>Well said. We experienced these issues in the payment backend system and we solved them. These are all real-time problems.</p></blockquote>
+  </details>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7448384411986825216/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7448022000192663552">
+  <header>
+    <span class="num">12</span>
+    <div class="title-block">
+      <h2>Webhooks: The Backbone of Async Payments</h2>
+      <span class="date">3w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQHbs5C5r-CfVA/feedshare-shrink_800/B4DZ1jjhj7IYAg-/0/1775491750455?e=1779321600&amp;v=beta&amp;t=p6WZbkAp3ukkcunnycU6OwNNmwR55PMOTtgUSStsSq0" alt="Webhooks: The Backbone of Async Payments" loading="lazy" /></figure>
+  <div class="caption"><p>In payments, you don’t always get the result instantly.</p><p>Your system sends a request — but the final status might come later.</p><p>That’s where webhooks come in.</p><p>Instead of constantly checking (polling), the payment provider calls your system back when something changes.</p><p>How it works:<br> 1. Payment is initiated<br> 2. Processing happens on the provider side<br> 3. A webhook is sent with the final status<br> 4. Your system updates the payment state</p><p>Where it gets tricky:<br> 1. Webhooks can be delayed<br> 2. They can be sent multiple times<br> 3. They might arrive out of order</p><p>If you blindly trust them → your system breaks.</p><p>Without webhooks, your system lives in uncertainty.<br>With them, you can build a reliable, event-driven payment flow.</p><p>In async systems, webhooks aren’t optional — they’re the source of truth for what actually happened.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7448022000192663552/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7447659580991561728">
+  <header>
+    <span class="num">13</span>
+    <div class="title-block">
+      <h2>How Payment Failures Are Handled (Retry, Rollback)</h2>
+      <span class="date">3w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQEyeAZ1w_Vkqw/feedshare-shrink_800/B4DZ1jiX0KIcAc-/0/1775491448407?e=1779321600&amp;v=beta&amp;t=iTPVY9nSLugEag5D-NMhwmMheDyp2JYvtGPn7mQ9zl8" alt="How Payment Failures Are Handled (Retry, Rollback)" loading="lazy" /></figure>
+  <div class="caption"><p>Payments don’t always succeed — and that’s normal.</p><p>What matters is how your system reacts when things fail.</p><p>A typical failure flow looks like this:<br> 1. Payment request sent<br> 2. Timeout/network issue/bank decline<br> 3. The system doesn’t know the final state immediately</p><p>Now comes the critical part.</p><p>How good systems handle this:<br> 1. Retry → safely re-attempt the payment (with idempotency)<br> 2. Rollback → reverse partial changes if needed<br> 3. Reconciliation → confirm final state via webhooks</p><p>Where it gets tricky:<br> 1. Did the payment actually go through or not?<br> 2. Retrying blindly can cause double charges<br> 3. Not retrying can lead to lost revenue</p><p>You’re dealing with uncertainty — And your system must stay correct under failure.</p><p>In payments, failure is expected — A reliable system is defined by how it recovers.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7447659580991561728/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7447308459932426241">
+  <header>
+    <span class="num">14</span>
+    <div class="title-block">
+      <h2>Why Idempotency is Critical in Payments</h2>
+      <span class="date">3w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQH9sEbsLIw2zQ/feedshare-shrink_800/B4DZ1X6jp8HwAc-/0/1775296461774?e=1779321600&amp;v=beta&amp;t=ILP1B04aajjl7EcP1KJbxxfqnIqcrF9jgnJAwNVLgO4" alt="Why Idempotency is Critical in Payments" loading="lazy" /></figure>
+  <div class="caption"><p>Users retry. Networks fail. Requests get duplicated.</p><p>Now imagine this in a payment system.</p><p>Without idempotency, the same request can charge a user multiple times — and that’s a disaster.</p><p>What idempotency does:<br> 1. Ensures the same request is processed only once<br> 2. Repeated requests return the same result<br> 3. Prevents duplicate charges</p><p>Where things break:<br> - User clicks “Pay” twice<br> - Network timeout → client retries<br> - Payment gateway sends duplicate callbacks</p><p>If your system treats each request as new → you lose control.</p><p>Why this matters:<br> - Payments don’t tolerate mistakes.<br> - You need guarantees like:<br> - No double charges<br> - Consistent state across retries<br> - Safe handling of failures</p></div>
+  <details class="other-comments">
+    <summary>6 community comment(s) — real-world examples</summary>
+    <blockquote><strong>Reader:</strong> <p>Well put — idempotency is foundational for making retries safe.</p><p>What’s interesting is how this connects to the decisioning layer.</p><p>Even if idempotency ensures “no double charge,” the system still needs to decide whether the transaction should proceed at all — especially under retries, latency, or uncertain states.</p><p>As payments move toward real-time and reduced buffers, reliability patterns like idempotency and decisioning need to work together, not in isolation.</p><p>Consistency is step one. Interpreting intent under uncertainty is where the real complexity begins.</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>This issue recently occurred in one of our services. We fixed it to ensure requests with the same TransactionID do not process the funds transfer.</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>Where things break: - User clicks “Pay” twice - Network timeout → client retries - Payment gateway sends duplicate callbackswhen you say &quot;user clicks pay twice&quot;, you dont disable payment button on first click?Logically you are suppose to disable that button because there&#x27;s a running process. re-enable it once that operation is done.</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>Nice one 👏<br>I recently hit something similar, but with notifications in a hospital system. If a notification fails, a doctor might not get paged — and that could be critical.<br>I added retries, but scaling introduced race conditions with multiple servers sending duplicates.<br>That’s what led me to idempotency too.<br>Interesting how this concept goes beyond payments.</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>Bro I worked on something similar, after running a function it caches the result, making the application faster when they request for the information again</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>Nice post! Indeed, when we are dealing with money, we must be as careful as possible.</p></blockquote>
+  </details>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7447308459932426241/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7446946073023188992">
+  <header>
+    <span class="num">15</span>
+    <div class="title-block">
+      <h2>Authorization vs Capture — The Part Most People Miss</h2>
+      <span class="date">4w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQG0xM7n3JzcBA/feedshare-shrink_800/B4DZ1X21SIJkAc-/0/1775295485430?e=1779321600&amp;v=beta&amp;t=ghMIMxWo-0ATXdQdaqeCCc6OhKryfOHt_LFj_5Ckcho" alt="Authorization vs Capture — The Part Most People Miss" loading="lazy" /></figure>
+  <div class="caption"><p>When a user makes a payment, the money doesn’t move immediately.</p><p>It happens in two steps — and mixing them up can break your system.</p><p>Authorization:<br> 1. Bank checks if the user has funds<br> 2. Amount is reserved, not deducted<br> 3. Think: “Can this payment happen?”</p><p>Capture:<br> 1. The reserved amount is actually charged<br> 2. Money moves from user to merchant<br> 3. Think: “Now complete the payment”</p><p>This separation exists for a reason.</p><p>Where it gets interesting:<br> - E-commerce → authorize now, capture after shipping<br> - Failed capture → no money taken<br> - Delayed capture → risk of expired authorization</p><p>Why this matters:<br> - Handling this incorrectly can lead to:<br> - Charging users without delivering<br> - Losing money due to missed captures<br> - Inconsistent payment states</p><p>Authorization is a promise — capture is the actual transaction.<br>Good systems treat them differently.</p></div>
+  <details class="other-comments">
+    <summary>2 community comment(s) — real-world examples</summary>
+    <blockquote><strong>Reader:</strong> <p>Question:1) don&#x27;t you think it is lengthy process in e-commerce example suppose authorize process validates user has funds or not then after shipping the capture process applied ?</p><p>Question: 2) validating and performing actual transaction from user bank don&#x27;t you think it is overhead two times services is being called rather it should be perfomed in one go?</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>Rakesh Kumar Authorization and capture aren’t duplicate work—they solve different problems.<br>Authorization safely reserves funds, and capture finalizes only when you&#x27;re ready (e.g., after shipping). If you combine them, you’ll end up handling refunds, disputes, and failures, which is far more expensive than a second call.<br>So it’s not overhead, it’s risk control + flexibility.</p></blockquote>
+  </details>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7446946073023188992/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7446583684394024960">
+  <header>
+    <span class="num">16</span>
+    <div class="title-block">
+      <h2>How a Payment Actually Works (End-to-End)</h2>
+      <span class="date">4w ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQEn4Z0a65kbug/feedshare-shrink_800/B4DZ1Xk9S0IoAc-/0/1775290799590?e=1779321600&amp;v=beta&amp;t=tDKUz_CR_EMgrVq1sDqQR5nBW1lbTasqpD9EX5NXWug" alt="How a Payment Actually Works (End-to-End)" loading="lazy" /></figure>
+  <div class="caption"><p>Most systems just call a payment API and move on.</p><p>But under the hood, a lot more is happening — and this is where real engineering starts.</p><p>A typical payment flow looks like this:<br> 1. User clicks “Pay”<br> 2. Payment request hits your backend<br> 3. Sent to a payment gateway (e.g. Stripe)<br> 4. Bank checks and authorizes the amount<br> 5. Payment is later captured<br> 6. Final status is confirmed via webhook</p><p>Sounds simple — until things go wrong.</p><p>What makes this tricky:<br> 1. Users retry → risk of duplicate payments<br> 2. Network issues → unclear payment state<br> 3. Webhooks can arrive late or multiple times<br> 4. Systems must handle failure without losing money</p><p>You’re not just processing requests — you’re handling real money with zero tolerance for mistakes.</p></div>
+  <details class="other-comments">
+    <summary>2 community comment(s) — real-world examples</summary>
+    <blockquote><strong>Reader:</strong> <p>Payment APIs are simple on the surface. The complexity lives in failure handling and edge cases.</p></blockquote>
+    <blockquote><strong>Reader:</strong> <p>This is very high level, real under the hood is when you bridge the gap between the Payment Gateway and the Bank. Revised Flow <br>1. User clicks &quot;Pay.&quot;<br>2. Backend sends request to Gateway.<br>3. Gateway sends data to the Payment Processor.<br>4. Processor routes the request through the Card Network.<br>5. Card Network requests authorization from the Issuing Bank.<br>6. Issuing Bank approves/declines; the response travels back through the network and processor.<br>7. Payment is captured and confirmed via Webhook or Batch processing.Essentially, the Gateway is the &quot;messenger,&quot; the Processor is the &quot;operator,&quot; and the Network is the &quot;road&quot; they drive on.</p></blockquote>
+  </details>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7446583684394024960/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7446221410802466816">
+  <header>
+    <span class="num">17</span>
+    <div class="title-block">
+      <h2>Designing a News Feed System at Scale</h2>
+      <span class="date">1mo ago</span>
+    </div>
+  </header>
+  <div class="no-img-note">No diagram on this post (text-only)</div>
+  <div class="caption"><p>A news feed is something we use daily — but designing it for millions of users is a completely different problem.</p><p>At its core, it’s not just about showing posts. It’s about handling distribution, ranking, and scale efficiently.</p><p>That’s where the real design challenges start.</p><p>A scalable news feed system typically deals with:<br> 1. Fan-out on write vs fan-out on read<br> 2. Feed generation strategies (push vs pull models)<br> 3. Ranking and relevance of posts<br> 4. Heavy reliance on caching for performance<br> 5. Handling high read traffic efficiently</p><p>These decisions directly impact latency, consistency, and user experience.</p><p>A news feed is not just a list of posts — it’s a carefully balanced system of trade-offs between speed, scale, and relevance.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7446221410802466816/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7444579251271442432">
+  <header>
+    <span class="num">18</span>
+    <div class="title-block">
+      <h2>Event Tracking: What Happens After You Send a Notification?</h2>
+      <span class="date">1mo ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQEafI1TaRODfA/feedshare-shrink_800/B4DZ0_i9w7IEAk-/0/1774887624056?e=1779321600&amp;v=beta&amp;t=cXz8lk-9cHjR2Bb-wJ19uJ4yf4caTTiuIdEkxXv-ADw" alt="Event Tracking: What Happens After You Send a Notification?" loading="lazy" /></figure>
+  <div class="caption"><p>Sending a notification is just one part of the story.<br>What really matters is what the user does next.</p><p>Do they open it?<br>Do they click it?<br>Do they ignore it?</p><p>This is where event tracking comes in.</p><p>Instead of just sending notifications, a good system keeps track of key actions like:<br> 1. When a notification is sent<br> 2. When it’s delivered<br> 3. whether it’s open<br> 4. If the user clicks on it</p><p>This data helps understand user behavior and improve how notifications are designed and delivered.</p><p>Notification → User Action → Data → Better Notifications</p><p>A scalable notification system is not complete without event tracking — because what you measure is what you improve.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7444579251271442432/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7444415368900722688">
+  <header>
+    <span class="num">19</span>
+    <div class="title-block">
+      <h2>Designing a Scalable Notification System</h2>
+      <span class="date">1mo ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQGPYlA_umebSQ/feedshare-shrink_800/B4DZ0_gU_9IYAc-/0/1774886932718?e=1779321600&amp;v=beta&amp;t=bG-_afVz2bjLnlxBn4_6fn4LlE6b3lSPPujesU8DuKY" alt="Designing a Scalable Notification System" loading="lazy" /></figure>
+  <div class="caption"><p>Sending a notification sounds simple — until you need to deliver it to millions of users, across multiple channels, in real time.</p><p>A well-designed notification system usually includes:<br>1️⃣ Producer Services<br>Different services (orders, payments, messaging) generate notification events.</p><p>2️⃣ Message Queue<br>Events are pushed into a queue (e.g., Kafka) to decouple producers from consumers and handle spikes smoothly.</p><p>3️⃣ Notification Service (Workers)<br>Processes events and decides:<br> 1. Who should receive the notification<br> 2. Which channel to use (email, SMS, push)<br> 3. When to send it</p><p>4️⃣ Delivery Channels<br>Integrates with external providers:<br> 1. Email services<br> 2. SMS gateways<br> 3. Push notification services</p><p>5️⃣ User Preferences &amp; Settings<br>Respect user choices like:<br> 1. Opt-in / opt-out<br> 2. Preferred channels<br> 3. Do-not-disturb timings</p><p>Key challenges:<br> 1. Handling massive scale<br> 2. Ensuring reliable delivery<br> 3. Avoiding duplicate notifications<br> 4. Managing retries and failures</p><p>A notification system is not just about sending messages — it’s about building a reliable, scalable pipeline that delivers the right message to the right user at the right time.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7444415368900722688/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7443127065668689920">
+  <header>
+    <span class="num">20</span>
+    <div class="title-block">
+      <h2>Designing a Web Crawler at Scale</h2>
+      <span class="date">1mo ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQEbLzSKFFgFeQ/feedshare-shrink_800/B4DZ0tMnx5KoAc-/0/1774579777083?e=1779321600&amp;v=beta&amp;t=W7hIloDhN7vgG5SQgPc6ysmwNMqZLLEZUPLAKGV8kZ4" alt="Designing a Web Crawler at Scale" loading="lazy" /></figure>
+  <div class="caption"><p>A web crawler sounds simple — start from a URL, follow links, and keep going.</p><p>But designing it for scale introduces real engineering challenges.</p><p>Here’s how a scalable crawler typically works:</p><p>1️⃣ URL Frontier (Queue)<br>A distributed queue that manages which URLs to crawl next.<br>It ensures:<br> 1. No duplicates<br> 2. Priority handling<br> 3. Controlled crawl rate</p><p>2️⃣ Fetcher Layer<br>Multiple workers fetch web pages in parallel.<br>Key concerns:<br> 1. Respecting rate limits (politeness)<br> 2. Handling failures and retries</p><p>3️⃣ Parser &amp; Extractor<br>Extracts:<br> 1. New URLs<br> 2. Metadata<br> 3. Content</p><p>Then pushes new links back into the queue.</p><p>4️⃣ Deduplication<br>Avoid crawling the same URL multiple times using hashing or fingerprints.</p><p>5️⃣ Storage Layer<br>Stores crawled data efficiently for indexing or further processing.</p><p>Key challenges:<br> 1. Handling billions of URLs<br> 2. Avoiding duplicate crawling<br> 3. Managing distributed workers<br> 4. Respecting website rate limits</p><p>Building a crawler is not about fetching pages — it’s about designing a system that is scalable, polite, and efficient under massive workloads.</p><p>This kind of system highlights the importance of distributed queues, fault tolerance, and smart resource management.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7443127065668689920/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7438962219725520896">
+  <header>
+    <span class="num">21</span>
+    <div class="title-block">
+      <h2>Token Bucket: How Top Engineers Keep Systems Reliable Under Load</h2>
+      <span class="date">1mo ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQFxVsGd6h0Amg/feedshare-shrink_800/B4DZztUGq1JQAc-/0/1773507996669?e=1779321600&amp;v=beta&amp;t=hxXV0vFr3p_ERsuKdqfEKCISk-5sipSsG-_fPRMJt8o" alt="Token Bucket: How Top Engineers Keep Systems Reliable Under Load" loading="lazy" /></figure>
+  <div class="caption"><p>In large-scale systems, handling millions of requests per second without breaking anything is a real challenge. That’s where Token Bucket rate limiting comes in — and it’s a game-changer.</p><p>Here’s why it matters:<br>Token Bucket isn’t just about limiting requests — it allows controlled bursts while enforcing long-term limits. This is crucial for APIs, payment systems, or any service where both performance and reliability matter.</p><p>How it works:<br>1️⃣ A bucket holds tokens; each token represents one request.<br>2️⃣ Tokens are added to the bucket at a fixed rate.<br>3️⃣ Each incoming request consumes a token.<br>4️⃣ If the bucket is empty, requests are delayed or rejected.</p><p>Why this is powerful:<br> 1. Allows short bursts without overwhelming the system<br> 2. Maintains fair usage among clients<br> 3. Prevents server crashes under sudden traffic spikes</p><p>Imagine your service has 1M daily users — without a mechanism like this, a few aggressive clients could bring your system down in seconds. With Token Bucket, the system stays reliable, even under stress.</p></div>
+  <div class="examples">
+    <h3>Feezan in comments</h3>
+    <blockquote class="feezan"><p>Alexa Belonix Great question, Alexa. I usually prefer Token Bucket when the system needs to allow short bursts of traffic while still enforcing a long-term rate limit.<br>Leaky Bucket works better when a system requires a strict and steady processing rate to smooth out traffic spikes.<br>So it really depends on whether the goal is burst tolerance or strict traffic shaping.</p><p>[LINKEDIN_LINK]</p></blockquote>
+  </div>
+  <details class="other-comments">
+    <summary>1 community comment(s) — real-world examples</summary>
+    <blockquote><strong>Alexa Belonix:</strong> <p>Token Bucket is a fantastic concept for ensuring both performance and reliability in high-demand systems like payment processing. It&#x27;s great to see these principles in action. Absolutely agree with the importance of handling short bursts while maintaining overall system stability. Do you prefer Token Bucket over Leaky Bucket for certain use cases?</p></blockquote>
+  </details>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7438962219725520896/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7438619626005110784">
+  <header>
+    <span class="num">22</span>
+    <div class="title-block">
+      <h2>Why Rate Limiting Is Critical in Modern Systems</h2>
+      <span class="date">1mo ago</span>
+    </div>
+  </header>
+  <figure><img class="diagram" src="https://media.licdn.com/dms/image/v2/D4D22AQHjfOiQl5vP9A/feedshare-shrink_800/B4DZztJIVwIwAc-/0/1773505119900?e=1779321600&amp;v=beta&amp;t=X37veg3g7YnNt80zxpViRvv0LdwCdDwkrRsSIlxkBRk" alt="Why Rate Limiting Is Critical in Modern Systems" loading="lazy" /></figure>
+  <div class="caption"><p>When building APIs or large-scale systems, one important mechanism that often gets overlooked early is rate limiting.</p><p>Rate limiting controls how many requests a client can send to a system within a given time period. Without it, even a well-designed system can quickly become unstable.</p><p>Here are some common problems rate limiting helps prevent:</p><p>1️⃣ System Overload<br>A sudden spike in traffic can exhaust server resources and cause downtime.</p><p>2️⃣ Abuse &amp; Bots<br>Automated scripts or malicious users can flood APIs with excessive requests.</p><p>3️⃣ Unfair Resource Usage<br>Without limits, a small group of users could consume most of the system’s capacity.</p><p>4️⃣ Service Protection<br>Rate limiting protects critical services like authentication, payment APIs, and public endpoints.</p><p>In practice, rate limiting is often implemented at different layers of the architecture:<br> a. API Gateways<br> b. Reverse Proxies<br> c. Load Balancers<br> d. Application Layer</p><p>Key takeaway:<br>Rate limiting is not just a security feature — it is a core reliability mechanism that helps systems remain stable, fair, and resilient under heavy traffic.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7438619626005110784/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7437155133777526784">
+  <header>
+    <span class="num">23</span>
+    <div class="title-block">
+      <h2>A Practical Framework for Approaching System Design Problems</h2>
+      <span class="date">1mo ago</span>
+    </div>
+  </header>
+  <div class="no-img-note">No diagram on this post (text-only)</div>
+  <div class="caption"><p>When designing large-scale systems, jumping straight into architecture diagrams can lead to confusion. A more effective approach is to follow a structured design process. Here is a simple framework many engineers use when tackling system design challenges:</p><p>1. Understand the Problem <br> Start by clarifying the requirements: <br> - Functional requirements (what the system should do) <br> - Non-functional requirements (scalability, latency, availability, reliability) </p><p>2. Estimate the Scale <br> Use quick back-of-the-envelope calculations to understand the magnitude of the system: <br> - Number of users <br> - Requests per second <br> - Storage requirements <br> These estimates help determine how complex the architecture needs to be. </p><p>3. High-Level Design <br> Define the major components of the system: <br> - Load balancers <br> - Application servers <br> - Databases <br> - Caching layers <br> - Message queues </p><p>4. Deep Dive Into Key Components <br> Explore important technical areas such as: <br> - Database sch ema design <br> - Caching strategies <br> - Data partitioning <br> - Replication and consistency </p><p>5. Identify Bottlenecks and Improve the Design <br> Analyze potential limitations and refine the system to improve: <br> - Scalability <br> - Reliability <br> - Fault tolerance </p><p>Key takeaway: Effective system design is not about drawing complex diagrams first — it’s about thinking through the problem methodically and making informed trade-offs.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7437155133777526784/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7436783974498304000">
+  <header>
+    <span class="num">24</span>
+    <div class="title-block">
+      <h2>Back-of-the-Envelope Estimation: A Key Skill in System Design</h2>
+      <span class="date">1mo ago</span>
+    </div>
+  </header>
+  <div class="no-img-note">No diagram on this post (text-only)</div>
+  <div class="caption"><p>Before designing any large-scale system, engineers often start with quick approximations to understand the scale of the problem.</p><p>These estimations help answer questions like:<br>• How many users will the system handle?<br>• How many requests per second (RPS) should we expect?<br>• How much storage will we need?<br>• What network bandwidth might be required?</p><p>For example, suppose a system has 10 million daily active users. If each user generates 10 requests per day, that means:<br>➡️ 100 million requests per day<br>➡️ ~1,150 requests per second (RPS)</p><p>This quick estimation immediately indicates that a single server will not be enough, and we may need load balancers, multiple application servers, caching, and database scaling.</p><p>Key takeaway: System design is not only about architecture diagrams — it starts with understanding scale through simple estimations.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7436783974498304000/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+<section class="post" id="post-7436427447123755008">
+  <header>
+    <span class="num">25</span>
+    <div class="title-block">
+      <h2>How a Web Application Scales From 1 User to Millions</h2>
+      <span class="date">1mo ago</span>
+    </div>
+  </header>
+  <div class="no-img-note">No diagram on this post (text-only)</div>
+  <div class="caption"><p>While studying the System Design Interview by Alex Xu (ByteByteGo), I explored a simple but powerful idea: systems evolve step-by-step as traffic grows.</p><p>A typical scaling journey looks like this:</p><p>1. Single Server Architecture <br> - Web server <br> - Application <br> - Database <br> All running on the same machine. Works fine for small traffic.</p><p>2. Separate Database Server <br> As traffic grows, the database becomes the bottleneck. We move the database to a dedicated server.</p><p>3. After traffic grows, the database becomes the bottleneck. We move the database to a dedicated server.</p><p>3. Add Load Balancers <br> Now multiple application servers handle incoming requests. The load balancer distributes traffic across them.</p><p>4. Introduce Caching <br> Frequently requested data is stored in cache (e.g., Redis). This reduces database load and improves latency.</p><p>5. Database Replication <br> - Master database handles writes <br> - Read replicas handle read queries <br> This improves both performance and availability.</p><p>Key lesson: Scalable systems are not built all at once — they evolve gradually as demand increases.</p></div>
+  <a class="src-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7436427447123755008/" target="_blank" rel="noopener">View original post on LinkedIn ↗</a>
+</section>
+
+
+</div>
+</body>
+</html>
