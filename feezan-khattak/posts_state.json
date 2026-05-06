@@ -1,0 +1,330 @@
+{
+  "last_seen_id": "7457444042059149312",
+  "posts": [
+    {
+      "id": "7457444042059149312",
+      "date": "21h",
+      "img": "7457444042059149312.jpg",
+      "cap": "Rate Limiting in Financial Systems\n\nPayments aren’t just about processing — they’re about control.\n\nWithout rate limiting, one bad actor\n(or one buggy client) can break everything.\n\nWhat can go wrong:\n - Burst traffic overwhelms your system\n - Downstream providers start failing\n - Retries amplify the problem\n\nNow a small issue becomes a full outage.\n\nWhere rate limiting helps:\n - Protects critical services from overload\n - Smooths traffic spikes\n - Prevents abuse and fraud attempts\n\nBut here’s the catch:\n - Too strict → you block real users\n - Too loose → you expose your system\n\nWhat good systems do:\n 1. Apply limits per user / API key\n 2. Use adaptive throttling under load\n 3. Prioritize critical flows over non-critical ones\n\nRate limiting isn’t just protection — it’s part of your system’s stability strategy.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7457081690201505793",
+      "date": "20h",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQEFdkJtEr8MUA/feedshare-shrink_800/B4DZ3XSqNxJIAg-/0/1777433486481?e=1779321600&v=beta&t=9cVMegny3CU6t8uDSrYVUBcW_XJgRvMT4IRo4VXJIGE",
+      "cap": "Fraud Detection: Rules vs ML\n\nEvery payment system needs a line of defense.\n\nThe question is — how smart should it be?\n\nRule-based systems:\n - Simple conditions (amount, location, velocity)\n - Fast, predictable, easy to debug\n - But rigid — fraudsters adapt quickly\n\nML-based systems:\n - Learn patterns from historical data\n - Catch subtle, evolving fraud signals\n - But harder to explain and maintain\n\nWhere it gets tricky:\n - Too strict → block real users\n - Too loose → let fraud pass\n\nThis is not a technical problem only — it’s a business trade-off.\n\nWhat real systems do:\n 1. Start with strong rules\n 2. Layer ML on top for smarter detection\n 3. Continuously tune based on feedback\n\nFraud detection isn’t about being perfect — it’s about managing risk without killing user experience.\n\nGood systems don’t choose between rules and ML — they combine both.\n\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7455994487203561472",
+      "date": "3d",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQErrt96y6QkYA/feedshare-shrink_800/B4DZ3IFprMHUAg-/0/1777178418182?e=1779321600&v=beta&t=1W9Dq7dJV63c5CZT1Va3FBwXVA3gt9GvXsqrmGRQScc",
+      "cap": "Handling High Concurrency Safely\n\nWhen traffic spikes, problems don’t show up slowly — they show up all at once.\n\nMultiple requests hit the same payment at the same time.\n\nWhat can go wrong:\n - Duplicate charges\n - Race conditions on state updates\n - Inconsistent balances\n\nEverything works in testing — until concurrency hits.\n\nWhy does this happen:\n - Parallel requests\n - “Check-then-act” logic\n - No coordination between processes\n\nHow good systems handle this:\n 1. Idempotency for every critical operation\n 2. Database constraints (unique keys)\n 3. Atomic updates/transactions\n 4. Selective locking (only where needed)\n\nYou don’t eliminate concurrency — you design so it can’t break you.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7455632069369487362",
+      "date": "4d",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQHDLyhSJ9bZBg/feedshare-shrink_800/B4DZ3DWjBLI4Ac-/0/1777098961327?e=1779321600&v=beta&t=suImVXQSeV1Jw-PSEL9d_uFy-0lwtMtJrVsuhmiF80M",
+      "cap": "Database Design for Transactions\n\nIn payments, your database isn’t just storage —\nit’s part of the transaction itself.\n\nA bad schema doesn’t just slow things down.\nIt creates inconsistency, duplicates, and money errors.\n\nWhat matters:\n - Every payment has a unique identity\n - State changes are explicit and traceable\n - Writes are atomic\n\nTypical structure:\n - payments → high-level state (created, authorized, captured)\n - transactions → individual operations (charge, refund)\n - idempotency_keys → prevent duplicates\n\nWhere it gets tricky:\n - Concurrent updates → race conditions\n - Partial writes → broken state\n - Retries → duplicate records\n\nHow good systems handle this:\n 1. Strong constraints (unique keys, indexes)\n 2. Transactions for critical writes\n 3. Append-only patterns for auditability\n\nIf your database design is weak, no amount of logic will save you.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7455269793797959680",
+      "date": "5d",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQGlJFOYHqmhKQ/feedshare-shrink_800/B4DZ3DVkhMHUAc-/0/1777098705289?e=1779321600&v=beta&t=X8i1kf43zyFAzP_EQeXbyGMe4EdMnWS0OUOCvoJL0g4",
+      "cap": "Using Queues in Payment Flows\n\nPayments shouldn’t depend on everything working instantly.\n\nThat’s where queues come in.\n\nInstead of doing everything in one request,\nyou push the work to a queue and process it reliably.\n\nWhat this solves:\n - Handles traffic spikes without breaking\n - Decouples services (gateway, ledger, notifications)\n - Enables retries without blocking users\n\nTypical flow:\n - API receives payment request\n - Event pushed to queue\n - Workers process payment asynchronously\n\nWhere it gets tricky:\n - Messages can be delayed or duplicated\n - Ordering is not guaranteed\n - Failures can leave messages stuck\n\nHow good systems handle this:\n 1. Idempotent consumers (safe retries)\n 2. Dead-letter queues for failures\n 3. Monitoring + replay mechanisms\n\nQueues don’t make systems simpler — they make them resilient.\nIn payments, reliability doesn’t come from speed — it comes from controlled async processing.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7454907413020868609",
+      "date": "6d",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQG5O1adXD9inA/feedshare-shrink_800/B4DZ3DUdTdHYAc-/0/1777098413561?e=1779321600&v=beta&t=R_-WMnOV_AAOqIwS3EgOxn7nzcYCi210m5nNZI7zPjM",
+      "cap": "Event-Driven Architecture in Payments\n\nPayments don’t happen in one step.\n\nThey evolve:\n - initiated → processed → succeeded → settled\n\nTrying to handle all of this in a single flow?\nThat’s where systems break.\n\nEvent-driven design changes the game:\n\nInstead of one big transaction, you emit events at every step.\n - Payment created\n - Payment authorized\n - Payment captured\n - Payment failed\n\nEach service reacts to these events independently.\n\nWhy this works:\n - Loose coupling between services\n - Better handling of async flows\n - Easier retries and recovery\n\nWhere it gets tricky:\n - Events can arrive late or be duplicated\n - Ordering is not guaranteed\n - Systems must handle partial state\n\nGood systems don’t fight this — they design around it.\nIn payments, events aren’t just notifications — they are the system.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": [
+        {
+          "a": "",
+          "t": "Completely agree — this is spot on.\nAt Payouts.com, we see this every day in practice. Building payment systems as synchronous, “all-in-one” flows simply doesn’t hold up once you introduce real-world complexity (multiple providers, retries, failures, settlements, etc.).\nThat’s why we design everything around asynchronous, event-driven workflows. Each step in the payment lifecycle emits events, and downstream services react independently. It’s the only way to achieve true scalability and resilience in modern payment systems.\nOf course, it comes with its own challenges — idempotency, ordering, eventual consistency — but as you said, strong systems don’t try to eliminate these realities, they embrace and design around them.\nIn payments, events aren’t just part of the system — they are the system."
+        },
+        {
+          "a": "",
+          "t": "If you have to explain what’s happening in the given flow, it seems that the flow is not clear enough"
+        },
+        {
+          "a": "",
+          "t": "In our banking system application, we also evolved toward an event-driven architecture. However, it came with many challenges, as we did not have Kafka experts, especially in terms of scaling consumer groups, handling already-processed credit events, and managing the sequential processing of Kafka messages, which resulted in considerable time lag when request traffic became congested and Kafka messages started piling up on the server.\n\nThis design looks super cool, but it comes with quite a few silent challenges when traffic spikes."
+        },
+        {
+          "a": "",
+          "t": "Muhammad Khalid ok"
+        },
+        {
+          "a": "",
+          "t": "Lol"
+        },
+        {
+          "a": "",
+          "t": "Hazrid Azad Bin Shaharudin lol"
+        },
+        {
+          "a": "",
+          "t": "Aliens landed on our Earth — first they flew around it in circles, took a good look at everything, and then decided to make contact with the people of Earth. They ask:\n— Why do you have so much garbage and so many dumps everywhere?\n— It's because we don't have enough money to build waste recycling plants.\n— Why do you have so many hungry and homeless people?\n— It's because we don't have enough money to feed them and build them homes.\n— Why are you constantly at war with each other?\n— It's because we don't have enough money, and we try to take it from others.\n...the aliens scratched their \"noggins\" and asked:\n— You see, we travel between galaxies, have explored countless worlds and planets, but we have never once encountered such a rare and apparently very essential resource as money. Could you show us what it looks like, and tell us where exactly you mine it in space? We'll try to fly out and get it, bring you more of this money, and help you establish harmony on your planet.\n— Oh, we don't fly anywhere for money, — the earthlings replied, — we print it ourselves.\n— Yourselves? — the aliens asked again.\n— Yes.\n...after that answer, earthlings were removed from the list of intelligent beings..."
+        },
+        {
+          "a": "",
+          "t": "Finally a pattern that lets payments breathe instead of choking on monolithic calls"
+        },
+        {
+          "a": "",
+          "t": "Exactly. In event-driven payment systems, idempotency keys and tracking IDs become critical for safely handling duplicate events and retries."
+        },
+        {
+          "a": "",
+          "t": "I don't know when will people stop generating hallucinated AI images and post it like ancient wisdom they bestowed upon. You missed the most important part out on this, which is called \"Idempotency\". Google it..."
+        },
+        {
+          "a": "",
+          "t": "I wish I had something like this when I started in payments."
+        },
+        {
+          "a": "",
+          "t": "Good explanation event driven design makes payment systems more scalable and reliable 🚀"
+        }
+      ]
+    },
+    {
+      "id": "7454544952031772673",
+      "date": "1w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQFjWqZXgrrKbQ/feedshare-shrink_800/B4DZ3C2micHYAc-/0/1777090587134?e=1779321600&v=beta&t=FRTSSE4imtdyerb64F4PIDETvyeu2tC6s8Jh2zi9ttc",
+      "cap": "How to Scale a Payment System\n\nScaling payments isn’t just about handling more traffic.\n\nIt’s about handling more money — without mistakes.\n\nAt a small scale, things work fine.\nAt a large scale, everything breaks differently.\n\nWhat changes as you scale:\n - More concurrent requests → race conditions\n - More retries → duplicate processing\n - More integrations → inconsistent states\n\nYou can’t “just scale servers” and hope it works.\n\nWhat good systems do:\n 1. Design for idempotency by default\n 2. Move to async processing where possible\n 3. Isolate critical components (gateway, ledger)\n 4. Build strong reconciliation pipelines\n\nScaling payments is less about performance — more about correctness under pressure.\n\nIf your system isn’t correct at a small scale, it will fail faster at a large scale.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7453457787520503808",
+      "date": "1w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQFelQehaJXeoQ/feedshare-shrink_800/B4DZ2ok3NeHcAg-/0/1776649729232?e=1779321600&v=beta&t=x5-aSvAQ1-lW_1SgFPi9BPQ_tucoC7MUmDAe4BTl6Xw",
+      "cap": "Refund Flow Design\n\nRefunds look simple:\n“Just give the money back.”\n\nThey’re not.\n\nA refund is a new transaction — not a reversal of the old one.\n\nWhat actually happens:\n - Original payment is completed\n - Refund request is created separately\n - Money flows back through the system\n\nWhere it gets tricky:\n - Partial refunds vs full refunds\n - Multiple refunds on the same payment\n - Refund succeeds at the provider but fails in your system\n\nNow your state is broken.\n\nWhat good systems do:\n 1. Treat refund as an independent flow\n 2. Link it to the original transaction\n 3. Make it idempotent (no double refunds)\n 4. Track status via async updates\n\nRefunds are slower, messier, and more prone to failure than payments.\n\nIf you don’t design them properly, you lose both money and trust.\n\nA refund isn’t undo — it’s another payment in the opposite direction.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7453095381858607105",
+      "date": "1w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQEG2h8Q676Dxg/feedshare-shrink_800/B4DZ2ohNE2KEAk-/0/1776648770173?e=1779321600&v=beta&t=TgD3ouXGNGRjZSItwMFyjrDia01R68MNAKdHWaoWbUo",
+      "cap": "Designing a Ledger System\n\nIn payments, this is where truth lives.\n\nNot in your service.\nNot in external providers.\nIn your ledger.\n\nA ledger doesn’t track balances — it records every movement of money.\n\nCore idea:\n - Every transaction = debit + credit\n - Money never disappears, it just moves\n\nWhat this gives you:\n - Full audit trail\n - Consistent balances\n - Ability to reconstruct the state anytime\n\nWhere it gets tricky:\n - Partial failures → entries out of sync\n - Concurrency → double writes\n - Reconciliation with external systems\n\nHow good systems handle this:\n 1. Use double-entry accounting\n 2. Make writes atomic\n 3. Never update the balance directly — derive it\n\nIf your ledger is wrong, everything built on top of it is wrong.\n\nIn payments, your ledger isn’t a feature — it’s the source of truth.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7452733098351325184",
+      "date": "1w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQGSv0HxyRkybQ/feedshare-shrink_800/B4DZ2oeQ9xIEAc-/0/1776647999738?e=1779321600&v=beta&t=nsSm6tNOfREfL4MyD93uZMnakxenabPRenHW_XNGyCw",
+      "cap": "Exactly-Once vs At-Least-Once — What Really Happens in Payments\n\nEveryone wants “exactly-once” processing.\nIn reality, most systems operate on at-least-once.\n\nWhy?\n\nBecause networks fail, retries happen, and messages get duplicated.\n\nAt-least-once:\n - Requests can be processed multiple times\n - Safer for delivery\n - Needs protection against duplicates\n\nExactly-once:\n - Ideal in theory\n - Hard to guarantee in distributed systems\n - Expensive and complex\n\nWhere things go wrong:\n - Duplicate events → multiple charges\n - Missed events → lost payments\n\nSo what do real systems do?\n 1. They accept at-least-once — and design for it.\n 2. Idempotency ensures safe retries\n 3. Deduplication prevents double processing\n 4. Systems stay consistent despite retries\n\nYou don’t achieve exactly-once by enforcing it — you achieve it by designing safely around at-least-once.\n\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7449471466259042305",
+      "date": "3w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQFfweSxtMI0jA/feedshare-shrink_800/B4DZ1topBZLMAc-/0/1775660864013?e=1779321600&v=beta&t=SOFDymyqNtGm-va6toUI7zWYCu5J-KFu_Bqxawvmehw",
+      "cap": "Authorized… But Never Captured — Now What?\n\nA payment gets authorized → funds are reserved.\n\nBut if you don’t capture it in time, the authorization simply expires.\n\nAnd just like that — the payment is gone.\n\nWhat your system thinks:\n - Payment is secured ✅\n\nWhat actually happens:\n - Funds are released back to the user ❌\n\nWhere things break:\n 1. Order is processed, but payment is never collected\n 2. Inventory is shipped without money received\n 3. System shows success, but revenue is lost\n\nHow to handle this properly:\n 1. Track authorization expiry time explicitly\n 2. Use background jobs to auto-capture before expiry\n 3. Trigger capture only after key events (e.g., shipping)\n 4. Set alerts for uncaptured payments\n\nAuthorization is temporary — it’s not a guarantee of payment.\n\nIf you don’t capture in time, you don’t get paid.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7448384411986825216",
+      "date": "3w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQF3uCg3cF-kqw/feedshare-shrink_800/B4DZ1tnLFvH8Ac-/0/1775660479207?e=1779321600&v=beta&t=VODsAUVGZAdSQqwt8tgwNoMIVE3STcW4TWMgvjOFpfE",
+      "cap": "Payment Succeeded… But Your System Thinks It Failed\n\nThis is one of the most dangerous scenarios in payments.\n\nYour system sends a payment request → The bank processes it successfully → But your system times out before getting the response.\n\nNow what?\n\nFrom your system’s perspective:\n - Payment = failed ❌\n\nFrom the bank’s perspective:\n - Payment = successful ✅\n\nThis is where things break:\n 1. You might retry → double charge\n 2. You might mark it failed → user gets charged but sees an error\n 3. Your system state becomes inconsistent\n\nHow good systems handle this:\n 1. Never trust immediate responses alone\n 2. Use webhooks for final confirmation\n 3. Design flows assuming uncertainty\n\nIn payments, “no response” doesn’t mean failure — it means you don’t know yet.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": [
+        {
+          "a": "",
+          "t": "Well said. We experienced these issues in the payment backend system and we solved them. These are all real-time problems."
+        }
+      ]
+    },
+    {
+      "id": "7448022000192663552",
+      "date": "3w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQHbs5C5r-CfVA/feedshare-shrink_800/B4DZ1jjhj7IYAg-/0/1775491750455?e=1779321600&v=beta&t=p6WZbkAp3ukkcunnycU6OwNNmwR55PMOTtgUSStsSq0",
+      "cap": "Webhooks: The Backbone of Async Payments\n\nIn payments, you don’t always get the result instantly.\n\nYour system sends a request — but the final status might come later.\n\nThat’s where webhooks come in.\n\nInstead of constantly checking (polling), the payment provider calls your system back when something changes.\n\nHow it works:\n 1. Payment is initiated\n 2. Processing happens on the provider side\n 3. A webhook is sent with the final status\n 4. Your system updates the payment state\n\nWhere it gets tricky:\n 1. Webhooks can be delayed\n 2. They can be sent multiple times\n 3. They might arrive out of order\n\nIf you blindly trust them → your system breaks.\n\nWithout webhooks, your system lives in uncertainty.\nWith them, you can build a reliable, event-driven payment flow.\n\nIn async systems, webhooks aren’t optional — they’re the source of truth for what actually happened.\n\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": [
+        {
+          "a": "",
+          "t": "Thanks for sharing"
+        }
+      ]
+    },
+    {
+      "id": "7447659580991561728",
+      "date": "3w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQEyeAZ1w_Vkqw/feedshare-shrink_800/B4DZ1jiX0KIcAc-/0/1775491448407?e=1779321600&v=beta&t=iTPVY9nSLugEag5D-NMhwmMheDyp2JYvtGPn7mQ9zl8",
+      "cap": "How Payment Failures Are Handled (Retry, Rollback)\n\nPayments don’t always succeed — and that’s normal.\n\nWhat matters is how your system reacts when things fail.\n\nA typical failure flow looks like this:\n 1. Payment request sent\n 2. Timeout/network issue/bank decline\n 3. The system doesn’t know the final state immediately\n\nNow comes the critical part.\n\nHow good systems handle this:\n 1. Retry → safely re-attempt the payment (with idempotency)\n 2. Rollback → reverse partial changes if needed\n 3. Reconciliation → confirm final state via webhooks\n\nWhere it gets tricky:\n 1. Did the payment actually go through or not?\n 2. Retrying blindly can cause double charges\n 3. Not retrying can lead to lost revenue\n\nYou’re dealing with uncertainty — And your system must stay correct under failure.\n\nIn payments, failure is expected — A reliable system is defined by how it recovers.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7447308459932426241",
+      "date": "3w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQH9sEbsLIw2zQ/feedshare-shrink_800/B4DZ1X6jp8HwAc-/0/1775296461774?e=1779321600&v=beta&t=ILP1B04aajjl7EcP1KJbxxfqnIqcrF9jgnJAwNVLgO4",
+      "cap": "Why Idempotency is Critical in Payments\n\nUsers retry. Networks fail. Requests get duplicated.\n\nNow imagine this in a payment system.\n\nWithout idempotency, the same request can charge a user multiple times — and that’s a disaster.\n\nWhat idempotency does:\n 1. Ensures the same request is processed only once\n 2. Repeated requests return the same result\n 3. Prevents duplicate charges\n\nWhere things break:\n - User clicks “Pay” twice\n - Network timeout → client retries\n - Payment gateway sends duplicate callbacks\n\nIf your system treats each request as new → you lose control.\n\nWhy this matters:\n - Payments don’t tolerate mistakes.\n - You need guarantees like:\n - No double charges\n - Consistent state across retries\n - Safe handling of failures\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": [
+        {
+          "a": "",
+          "t": "Well put — idempotency is foundational for making retries safe.\n\nWhat’s interesting is how this connects to the decisioning layer.\n\nEven if idempotency ensures “no double charge,” the system still needs to decide whether the transaction should proceed at all — especially under retries, latency, or uncertain states.\n\nAs payments move toward real-time and reduced buffers, reliability patterns like idempotency and decisioning need to work together, not in isolation.\n\nConsistency is step one. Interpreting intent under uncertainty is where the real complexity begins."
+        },
+        {
+          "a": "",
+          "t": "This issue recently occurred in one of our services. We fixed it to ensure requests with the same TransactionID do not process the funds transfer."
+        },
+        {
+          "a": "",
+          "t": "Where things break: - User clicks “Pay” twice - Network timeout → client retries - Payment gateway sends duplicate callbackswhen you say \"user clicks pay twice\", you dont disable payment button on first click?Logically you are suppose to disable that button because there's a running process. re-enable it once that operation is done."
+        },
+        {
+          "a": "",
+          "t": "Nice one 👏\nI recently hit something similar, but with notifications in a hospital system. If a notification fails, a doctor might not get paged — and that could be critical.\nI added retries, but scaling introduced race conditions with multiple servers sending duplicates.\nThat’s what led me to idempotency too.\nInteresting how this concept goes beyond payments."
+        },
+        {
+          "a": "",
+          "t": "Bro I worked on something similar, after running a function it caches the result, making the application faster when they request for the information again"
+        },
+        {
+          "a": "",
+          "t": "Ayush Manoj"
+        },
+        {
+          "a": "",
+          "t": "Nice post! Indeed, when we are dealing with money, we must be as careful as possible."
+        }
+      ]
+    },
+    {
+      "id": "7446946073023188992",
+      "date": "4w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQG0xM7n3JzcBA/feedshare-shrink_800/B4DZ1X21SIJkAc-/0/1775295485430?e=1779321600&v=beta&t=ghMIMxWo-0ATXdQdaqeCCc6OhKryfOHt_LFj_5Ckcho",
+      "cap": "Authorization vs Capture — The Part Most People Miss\n\nWhen a user makes a payment, the money doesn’t move immediately.\n\nIt happens in two steps — and mixing them up can break your system.\n\nAuthorization:\n 1. Bank checks if the user has funds\n 2. Amount is reserved, not deducted\n 3. Think: “Can this payment happen?”\n\nCapture:\n 1. The reserved amount is actually charged\n 2. Money moves from user to merchant\n 3. Think: “Now complete the payment”\n\nThis separation exists for a reason.\n\nWhere it gets interesting:\n - E-commerce → authorize now, capture after shipping\n - Failed capture → no money taken\n - Delayed capture → risk of expired authorization\n\nWhy this matters:\n - Handling this incorrectly can lead to:\n - Charging users without delivering\n - Losing money due to missed captures\n - Inconsistent payment states\n\nAuthorization is a promise — capture is the actual transaction.\nGood systems treat them differently.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": [
+        {
+          "a": "",
+          "t": "Question:1) don't you think it is lengthy process in e-commerce example suppose authorize process validates user has funds or not then after shipping the capture process applied ?\n\nQuestion: 2) validating and performing actual transaction from user bank don't you think it is overhead two times services is being called rather it should be perfomed in one go?"
+        },
+        {
+          "a": "",
+          "t": "Rakesh Kumar Authorization and capture aren’t duplicate work—they solve different problems.\nAuthorization safely reserves funds, and capture finalizes only when you're ready (e.g., after shipping). If you combine them, you’ll end up handling refunds, disputes, and failures, which is far more expensive than a second call.\nSo it’s not overhead, it’s risk control + flexibility."
+        }
+      ]
+    },
+    {
+      "id": "7446583684394024960",
+      "date": "4w",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQEn4Z0a65kbug/feedshare-shrink_800/B4DZ1Xk9S0IoAc-/0/1775290799590?e=1779321600&v=beta&t=tDKUz_CR_EMgrVq1sDqQR5nBW1lbTasqpD9EX5NXWug",
+      "cap": "How a Payment Actually Works (End-to-End)\n\nMost systems just call a payment API and move on.\n\nBut under the hood, a lot more is happening — and this is where real engineering starts.\n\nA typical payment flow looks like this:\n 1. User clicks “Pay”\n 2. Payment request hits your backend\n 3. Sent to a payment gateway (e.g. Stripe)\n 4. Bank checks and authorizes the amount\n 5. Payment is later captured\n 6. Final status is confirmed via webhook\n\nSounds simple — until things go wrong.\n\nWhat makes this tricky:\n 1. Users retry → risk of duplicate payments\n 2. Network issues → unclear payment state\n 3. Webhooks can arrive late or multiple times\n 4. Systems must handle failure without losing money\n\nYou’re not just processing requests — you’re handling real money with zero tolerance for mistakes.\n\n #SystemDesign  #BackendEngineering  #Payments  #DistributedSystems",
+      "fc": [],
+      "oc": [
+        {
+          "a": "",
+          "t": "Payment APIs are simple on the surface. The complexity lives in failure handling and edge cases."
+        },
+        {
+          "a": "",
+          "t": "Ooreade Adeniran exactly, you spot it.🙂"
+        },
+        {
+          "a": "",
+          "t": "This is very high level, real under the hood is when you bridge the gap between the Payment Gateway and the Bank. Revised Flow \n1. User clicks \"Pay.\"\n2. Backend sends request to Gateway.\n3. Gateway sends data to the Payment Processor.\n4. Processor routes the request through the Card Network.\n5. Card Network requests authorization from the Issuing Bank.\n6. Issuing Bank approves/declines; the response travels back through the network and processor.\n7. Payment is captured and confirmed via Webhook or Batch processing.Essentially, the Gateway is the \"messenger,\" the Processor is the \"operator,\" and the Network is the \"road\" they drive on."
+        }
+      ]
+    },
+    {
+      "id": "7446221410802466816",
+      "date": "1mo",
+      "img": "",
+      "cap": "Designing a News Feed System at Scale\n\nA news feed is something we use daily — but designing it for millions of users is a completely different problem.\n\nAt its core, it’s not just about showing posts. It’s about handling distribution, ranking, and scale efficiently.\n\nThat’s where the real design challenges start.\n\nA scalable news feed system typically deals with:\n 1. Fan-out on write vs fan-out on read\n 2. Feed generation strategies (push vs pull models)\n 3. Ranking and relevance of posts\n 4. Heavy reliance on caching for performance\n 5. Handling high read traffic efficiently\n\nThese decisions directly impact latency, consistency, and user experience.\n\nA news feed is not just a list of posts — it’s a carefully balanced system of trade-offs between speed, scale, and relevance.\n\n #SystemDesign  #SoftwareEngineering  #DistributedSystems  #BackendEngineering",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7444579251271442432",
+      "date": "1mo",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQEafI1TaRODfA/feedshare-shrink_800/B4DZ0_i9w7IEAk-/0/1774887624056?e=1779321600&v=beta&t=cXz8lk-9cHjR2Bb-wJ19uJ4yf4caTTiuIdEkxXv-ADw",
+      "cap": "Event Tracking: What Happens After You Send a Notification?\n\nSending a notification is just one part of the story.\nWhat really matters is what the user does next.\n\nDo they open it?\nDo they click it?\nDo they ignore it?\n\nThis is where event tracking comes in.\n\nInstead of just sending notifications, a good system keeps track of key actions like:\n 1. When a notification is sent\n 2. When it’s delivered\n 3. whether it’s open\n 4. If the user clicks on it\n\nThis data helps understand user behavior and improve how notifications are designed and delivered.\n\nNotification → User Action → Data → Better Notifications\n\nA scalable notification system is not complete without event tracking — because what you measure is what you improve.\n\n\n #SystemDesign  #BackendEngineering  #DataEngineering  #SoftwareArchitecture  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7444415368900722688",
+      "date": "1mo",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQGPYlA_umebSQ/feedshare-shrink_800/B4DZ0_gU_9IYAc-/0/1774886932718?e=1779321600&v=beta&t=bG-_afVz2bjLnlxBn4_6fn4LlE6b3lSPPujesU8DuKY",
+      "cap": "Designing a Scalable Notification System\n\nSending a notification sounds simple — until you need to deliver it to millions of users, across multiple channels, in real time.\n\nA well-designed notification system usually includes:\n1️⃣ Producer Services\nDifferent services (orders, payments, messaging) generate notification events.\n\n2️⃣ Message Queue\nEvents are pushed into a queue (e.g., Kafka) to decouple producers from consumers and handle spikes smoothly.\n\n3️⃣ Notification Service (Workers)\nProcesses events and decides:\n 1. Who should receive the notification\n 2. Which channel to use (email, SMS, push)\n 3. When to send it\n\n4️⃣ Delivery Channels\nIntegrates with external providers:\n 1. Email services\n 2. SMS gateways\n 3. Push notification services\n\n5️⃣ User Preferences & Settings\nRespect user choices like:\n 1. Opt-in / opt-out\n 2. Preferred channels\n 3. Do-not-disturb timings\n\nKey challenges:\n 1. Handling massive scale\n 2. Ensuring reliable delivery\n 3. Avoiding duplicate notifications\n 4. Managing retries and failures\n\nA notification system is not just about sending messages — it’s about building a reliable, scalable pipeline that delivers the right message to the right user at the right time.\n\n\n #SystemDesign  #BackendEngineering  #DistributedSystems  #SoftwareArchitecture  #ScalableSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7443127065668689920",
+      "date": "1mo",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQEbLzSKFFgFeQ/feedshare-shrink_800/B4DZ0tMnx5KoAc-/0/1774579777083?e=1779321600&v=beta&t=W7hIloDhN7vgG5SQgPc6ysmwNMqZLLEZUPLAKGV8kZ4",
+      "cap": "Designing a Web Crawler at Scale\n\nA web crawler sounds simple — start from a URL, follow links, and keep going.\n\nBut designing it for scale introduces real engineering challenges.\n\nHere’s how a scalable crawler typically works:\n\n1️⃣ URL Frontier (Queue)\nA distributed queue that manages which URLs to crawl next.\nIt ensures:\n 1. No duplicates\n 2. Priority handling\n 3. Controlled crawl rate\n\n2️⃣ Fetcher Layer\nMultiple workers fetch web pages in parallel.\nKey concerns:\n 1. Respecting rate limits (politeness)\n 2. Handling failures and retries\n\n3️⃣ Parser & Extractor\nExtracts:\n 1. New URLs\n 2. Metadata\n 3. Content\n\nThen pushes new links back into the queue.\n\n4️⃣ Deduplication\nAvoid crawling the same URL multiple times using hashing or fingerprints.\n\n5️⃣ Storage Layer\nStores crawled data efficiently for indexing or further processing.\n\nKey challenges:\n 1. Handling billions of URLs\n 2. Avoiding duplicate crawling\n 3. Managing distributed workers\n 4. Respecting website rate limits\n\nBuilding a crawler is not about fetching pages — it’s about designing a system that is scalable, polite, and efficient under massive workloads.\n\nThis kind of system highlights the importance of distributed queues, fault tolerance, and smart resource management.\n\n #SystemDesign  #BackendEngineering  #DistributedSystems  #SoftwareArchitecture  #ScalableSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7438962219725520896",
+      "date": "1mo",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQFxVsGd6h0Amg/feedshare-shrink_800/B4DZztUGq1JQAc-/0/1773507996669?e=1779321600&v=beta&t=hxXV0vFr3p_ERsuKdqfEKCISk-5sipSsG-_fPRMJt8o",
+      "cap": "Token Bucket: How Top Engineers Keep Systems Reliable Under Load\n\nIn large-scale systems, handling millions of requests per second without breaking anything is a real challenge. That’s where Token Bucket rate limiting comes in — and it’s a game-changer.\n\nHere’s why it matters:\nToken Bucket isn’t just about limiting requests — it allows controlled bursts while enforcing long-term limits. This is crucial for APIs, payment systems, or any service where both performance and reliability matter.\n\nHow it works:\n1️⃣ A bucket holds tokens; each token represents one request.\n2️⃣ Tokens are added to the bucket at a fixed rate.\n3️⃣ Each incoming request consumes a token.\n4️⃣ If the bucket is empty, requests are delayed or rejected.\n\nWhy this is powerful:\n 1. Allows short bursts without overwhelming the system\n 2. Maintains fair usage among clients\n 3. Prevents server crashes under sudden traffic spikes\n\nImagine your service has 1M daily users — without a mechanism like this, a few aggressive clients could bring your system down in seconds. With Token Bucket, the system stays reliable, even under stress.\n\n\n #SystemDesign  #BackendEngineering  #APIDesign  #ScalableSystems  #DistributedSystems  #SoftwareArchitecture",
+      "fc": [
+        "Alexa Belonix Great question, Alexa. I usually prefer Token Bucket when the system needs to allow short bursts of traffic while still enforcing a long-term rate limit.\nLeaky Bucket works better when a system requires a strict and steady processing rate to smooth out traffic spikes.\nSo it really depends on whether the goal is burst tolerance or strict traffic shaping.\n\n[LINKEDIN_LINK]"
+      ],
+      "oc": [
+        {
+          "a": "Alexa Belonix",
+          "t": "Token Bucket is a fantastic concept for ensuring both performance and reliability in high-demand systems like payment processing. It's great to see these principles in action. Absolutely agree with the importance of handling short bursts while maintaining overall system stability. Do you prefer Token Bucket over Leaky Bucket for certain use cases?"
+        }
+      ]
+    },
+    {
+      "id": "7438619626005110784",
+      "date": "1mo",
+      "img": "https://media.licdn.com/dms/image/v2/D4D22AQHjfOiQl5vP9A/feedshare-shrink_800/B4DZztJIVwIwAc-/0/1773505119900?e=1779321600&v=beta&t=X37veg3g7YnNt80zxpViRvv0LdwCdDwkrRsSIlxkBRk",
+      "cap": "Why Rate Limiting Is Critical in Modern Systems\n\nWhen building APIs or large-scale systems, one important mechanism that often gets overlooked early is rate limiting.\n\nRate limiting controls how many requests a client can send to a system within a given time period. Without it, even a well-designed system can quickly become unstable.\n\nHere are some common problems rate limiting helps prevent:\n\n1️⃣ System Overload\nA sudden spike in traffic can exhaust server resources and cause downtime.\n\n2️⃣ Abuse & Bots\nAutomated scripts or malicious users can flood APIs with excessive requests.\n\n3️⃣ Unfair Resource Usage\nWithout limits, a small group of users could consume most of the system’s capacity.\n\n4️⃣ Service Protection\nRate limiting protects critical services like authentication, payment APIs, and public endpoints.\n\nIn practice, rate limiting is often implemented at different layers of the architecture:\n a. API Gateways\n b. Reverse Proxies\n c. Load Balancers\n d. Application Layer\n\nKey takeaway:\nRate limiting is not just a security feature — it is a core reliability mechanism that helps systems remain stable, fair, and resilient under heavy traffic.\n\n\n\n #SystemDesign  #BackendEngineering  #SoftwareArchitecture  #APIDesign  #ScalableSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7437155133777526784",
+      "date": "1mo",
+      "img": "",
+      "cap": "A Practical Framework for Approaching System Design Problems\n\nWhen designing large-scale systems, jumping straight into architecture diagrams can lead to confusion. A more effective approach is to follow a structured design process. Here is a simple framework many engineers use when tackling system design challenges:\n\n1. Understand the Problem \n Start by clarifying the requirements: \n - Functional requirements (what the system should do) \n - Non-functional requirements (scalability, latency, availability, reliability) \n\n2. Estimate the Scale \n Use quick back-of-the-envelope calculations to understand the magnitude of the system: \n - Number of users \n - Requests per second \n - Storage requirements \n These estimates help determine how complex the architecture needs to be. \n\n3. High-Level Design \n Define the major components of the system: \n - Load balancers \n - Application servers \n - Databases \n - Caching layers \n - Message queues \n\n4. Deep Dive Into Key Components \n Explore important technical areas such as: \n - Database sch ema design \n - Caching strategies \n - Data partitioning \n - Replication and consistency \n\n5. Identify Bottlenecks and Improve the Design \n Analyze potential limitations and refine the system to improve: \n - Scalability \n - Reliability \n - Fault tolerance \n\nKey takeaway: Effective system design is not about drawing complex diagrams first — it’s about thinking through the problem methodically and making informed trade-offs. \n\n #SystemDesign  #SoftwareArchitecture  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7436783974498304000",
+      "date": "1mo",
+      "img": "",
+      "cap": "Back-of-the-Envelope Estimation: A Key Skill in System Design\n\nBefore designing any large-scale system, engineers often start with quick approximations to understand the scale of the problem.\n\nThese estimations help answer questions like:\n• How many users will the system handle?\n• How many requests per second (RPS) should we expect?\n• How much storage will we need?\n• What network bandwidth might be required?\n\nFor example, suppose a system has 10 million daily active users. If each user generates 10 requests per day, that means:\n➡️ 100 million requests per day\n➡️ ~1,150 requests per second (RPS)\n\nThis quick estimation immediately indicates that a single server will not be enough, and we may need load balancers, multiple application servers, caching, and database scaling.\n\nKey takeaway: System design is not only about architecture diagrams — it starts with understanding scale through simple estimations.\n\n #SystemDesign  #SoftwareEngineering  #BackendEngineering  #DistributedSystems  #Scalability",
+      "fc": [],
+      "oc": []
+    },
+    {
+      "id": "7436427447123755008",
+      "date": "1mo",
+      "img": "",
+      "cap": "How a Web Application Scales From 1 User to Millions\n\nWhile studying the System Design Interview by Alex Xu (ByteByteGo), I explored a simple but powerful idea: systems evolve step-by-step as traffic grows.\n\nA typical scaling journey looks like this:\n\n1. Single Server Architecture \n - Web server \n - Application \n - Database \n All running on the same machine. Works fine for small traffic.\n\n2. Separate Database Server \n As traffic grows, the database becomes the bottleneck. We move the database to a dedicated server.\n\n3. After traffic grows, the database becomes the bottleneck. We move the database to a dedicated server.\n\n3. Add Load Balancers \n Now multiple application servers handle incoming requests. The load balancer distributes traffic across them.\n\n4. Introduce Caching \n Frequently requested data is stored in cache (e.g., Redis). This reduces database load and improves latency.\n\n5. Database Replication \n - Master database handles writes \n - Read replicas handle read queries \n This improves both performance and availability.\n\nKey lesson: Scalable systems are not built all at once — they evolve gradually as demand increases.\n\n #SystemDesign  #BackendEngineering  #SoftwareArchitecture  #Java  #Microservices",
+      "fc": [],
+      "oc": []
+    }
+  ]
+}
