@@ -1,6 +1,14 @@
 {
-  "last_seen_id": "7457444042059149312",
+  "last_seen_id": "7457806506302996482",
   "posts": [
+    {
+      "id": "7457806506302996482",
+      "date": "15h",
+      "img": "7457806506302996482.jpg",
+      "cap": "Observability in Payments\n\nA payment fails.\nThe user says it didn’t go through.\nThe provider says it did.\n\nNow what?\n\nWithout observability,\nYou’re guessing.\n\nWhat you actually need:\n - Logs → what happened\n - Metrics → how often it happens\n - Tracing → where it broke\n\nBecause a single payment isn’t one call — it’s a chain across multiple services.\n\nWhere things get messy:\n - Partial failures across systems\n - Async flows (webhooks, queues)\n - No single place with the full picture\n\nHow good systems handle this:\n 1. Correlate everything with a request/payment ID\n 2. Use distributed tracing across services\n 3. Log meaningful state transitions (not just errors)\n\nIf you can’t trace a payment end-to-end, you don’t control your system.\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
     {
       "id": "7457444042059149312",
       "date": "21h",
