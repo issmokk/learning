@@ -1,6 +1,27 @@
 {
-  "last_seen_id": "7457806506302996482",
+  "last_seen_id": "7458531296261148672",
   "posts": [
+    {
+      "id": "7458531296261148672",
+      "date": "1w",
+      "img": "7458531296261148672.jpg",
+      "cap": "Consistency vs Availability — The Trade-off You Can't Avoid\n\nIn payments, you don't get everything.\nWhen a system is under stress,\n\nyou choose:\n - Consistency → correct data\n - Availability → always respond\n\nYou can't fully guarantee both.\n\nWhat this looks like in reality:\n - Strict consistency → slower systems, possible downtime\n - High availability → risk of stale or conflicting data\n\nWhere it gets real:\n - During network failures\n - During multi-region replication\n - During retries and async flows\n\nThis is not theoretical; it shows up in production.\n\nWhat good systems do:\n 1. Choose consistency for critical flows (ledger)\n 2. Relax it where possible (notifications, analytics)\n 3. Use reconciliation to fix eventual mismatches\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": [
+        {
+          "a": "",
+          "t": "this mostly known as CAP theorem, the P comes from partition tolerance. the theorem tells you can have 2 but not the 3 at the same tine"
+        }
+      ]
+    },
+    {
+      "id": "7458168904981434369",
+      "date": "18h",
+      "img": "7458168904981434369.jpg",
+      "cap": "Multi-Region Payment Systems\n\nOne region goes down.\nDo your payments stop?\n\nIf yes, you don’t have a payment system; you have a single point of failure.\n\nWhy multi-region matters:\n - High availability (failover when a region dies)\n - Lower latency for global users\n - Resilience against outages\n\nBut it’s not that simple:\n - Data consistency across regions\n - Duplicate processing during failover\n - Conflicting states between systems\n\nNow you’re not just building payments — you’re dealing with distributed truth.\n\nWhat good systems do:\n 1. Active-passive or active-active setups\n 2. Strong idempotency across regions\n 3. Region-aware routing (stick to one region per payment)\n 4. Async replication + reconciliation\n\n #SystemDesign  #Payments  #BackendEngineering  #DistributedSystems",
+      "fc": [],
+      "oc": []
+    },
     {
       "id": "7457806506302996482",
       "date": "15h",
